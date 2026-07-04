@@ -1,0 +1,24 @@
+<svg width="640" height="200" viewBox="0 0 640 200" xmlns="http://www.w3.org/2000/svg" role="img">
+  <title>Fexie logo</title>
+  <desc>Logo lockup: monogram combining F and X, followed by the wordmark Fexie</desc>
+  <defs>
+    <filter id="glow2" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="18" result="blur" />
+    </filter>
+  </defs>
+
+  <rect x="0" y="0" width="640" height="200" fill="#000000" />
+  <circle cx="100" cy="100" r="90" fill="rgba(255,255,255,0.07)" filter="url(#glow2)" />
+
+  <g transform="translate(20,20) scale(0.6667)">
+    <rect x="1" y="1" width="238" height="238" rx="54" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="1.5" />
+    <g fill="none" stroke="#ffffff" stroke-width="20" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M75 115 L75 45 L165 45" />
+      <path d="M75 90 L145 90" />
+      <path d="M75 115 L165 195" />
+      <path d="M165 45 L65 195" />
+    </g>
+  </g>
+
+  <text x="205" y="122" font-family="Arial, Helvetica, sans-serif" font-size="72" font-weight="700" letter-spacing="1" fill="#ffffff">Fexie</text>
+</svg>

@@ -1,65 +1,122 @@
-import Image from "next/image";
+'use client'
+import Image from 'next/image';
+import { useState, useEffect } from 'react';
+import Post from "./post/page";
 
-export default function Home() {
+function PostWrapper({ username }: { username: string }) {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    const raf = requestAnimationFrame(() => setMounted(true));
+    return () => cancelAnimationFrame(raf);
+  }, []);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+    <div
+      className={`transition-all duration-500 ease-out motion-reduce:transition-none ${
+        mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'
+      }`}
+    >
+      <Post username={username} />
     </div>
   );
+}
+
+export default function Home() {
+  const [username, setUsername] = useState('');
+  const [hasEntered, setHasEntered] = useState(false);
+  const [isExiting, setIsExiting] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    const raf = requestAnimationFrame(() => setMounted(true));
+    return () => cancelAnimationFrame(raf);
+  }, []);
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!username.trim() || isExiting) return;
+
+    setIsExiting(true);
+    setTimeout(() => setHasEntered(true), 350); // samain sama duration transition di bawah
+  };
+
+  if (!hasEntered) {
+    // urutan state: belum mounted -> mounted -> (submit) -> exiting
+    const showCard = mounted && !isExiting;
+
+    return (
+      <div className="relative flex items-center justify-center min-h-screen bg-black overflow-hidden px-4">
+        {/* Ambient glow */}
+
+        {/* Dot grid texture halus */}
+        <div
+          className="pointer-events-none absolute inset-0 opacity-[0.04]"
+          style={{
+            backgroundImage: 'radial-gradient(rgba(255,255,255,0.8) 1px, transparent 1px)',
+            backgroundSize: '28px 28px',
+          }}
+        />
+
+        <form
+          onSubmit={handleSubmit}
+          className={`relative w-full max-w-sm rounded-3xl border border-white/10 bg-white/[0.03] backdrop-blur-xl p-8 shadow-[0_0_80px_-20px_rgba(255,255,255,0.15)] transition-all duration-[350ms] ease-out motion-reduce:transition-none ${
+            showCard
+              ? 'opacity-100 scale-100 translate-y-0 blur-0'
+              : 'opacity-0 scale-95 translate-y-3 blur-sm'
+          }`}
+        >
+          <div className="flex flex-col items-center text-center mb-7">
+            <div
+              className={`w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-4 text-2xl transition-all duration-500 delay-150 ease-out motion-reduce:transition-none ${
+                showCard ? 'opacity-100 scale-100' : 'opacity-0 scale-50'
+              }`}
+            >
+              <Image src="/fexie-icon.svg" width={52} height={52} />
+            </div>
+            <span className="text-[11px] tracking-[0.25em] text-white/40 mb-2">
+              Fexie/AskAboutMe
+            </span>
+            <h2 className="text-2xl font-semibold text-white leading-snug">
+              Panggilan kamu siapa?
+            </h2>
+          </div>
+
+          <div
+            className={`mb-5 rounded-xl border bg-black transition-colors duration-200 ${
+              isFocused ? 'border-white/40' : 'border-white/10'
+            }`}
+          >
+            <input
+              type="text"
+              required
+              placeholder="Ketik nama kamu..."
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              onFocus={() => setIsFocused(true)}
+              onBlur={() => setIsFocused(false)}
+              disabled={isExiting}
+              className="w-full bg-transparent text-white placeholder-white/30 p-3.5 rounded-xl outline-none disabled:opacity-50"
+            />
+          </div>
+
+          <button
+            type="submit"
+            disabled={!username.trim() || isExiting}
+            className="group w-full bg-white text-black p-3.5 rounded-xl font-medium transition-all duration-200 hover:bg-white/90 active:scale-[0.98] disabled:opacity-30 disabled:cursor-not-allowed"
+          >
+            <span className="flex items-center justify-center gap-2">
+              Skuy Nanya
+              <span className="transition-transform duration-200 group-hover:translate-x-1">
+                →
+              </span>
+            </span>
+          </button>
+        </form>
+      </div>
+    );
+  }
+
+  return <PostWrapper username={username} />;
 }

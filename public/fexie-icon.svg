@@ -1,0 +1,21 @@
+<svg width="240" height="240" viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg" role="img">
+  <title>Fexie logo mark</title>
+  <desc>Monogram combining the letters F and X into a single geometric symbol</desc>
+  <defs>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="14" result="blur" />
+    </filter>
+  </defs>
+
+  <rect x="1" y="1" width="238" height="238" rx="54" fill="#000000" />
+  <rect x="1" y="1" width="238" height="238" rx="54" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1" />
+
+  <circle cx="118" cy="128" r="72" fill="rgba(255,255,255,0.08)" filter="url(#glow)" />
+
+  <g fill="none" stroke="#ffffff" stroke-width="20" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M75 115 L75 45 L165 45" />
+    <path d="M75 90 L145 90" />
+    <path d="M75 115 L165 195" />
+    <path d="M165 45 L65 195" />
+  </g>
+</svg>
