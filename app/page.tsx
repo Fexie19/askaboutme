@@ -73,7 +73,7 @@ export default function Home() {
                 showCard ? 'opacity-100 scale-100' : 'opacity-0 scale-50'
               }`}
             >
-              <Image src="/fexie-icon.svg" width={52} height={52} />
+              <Image src="/fexie-icon.svg" width={52} height={52} alt="Fexie Icon" />
             </div>
             <span className="text-[11px] tracking-[0.25em] text-white/40 mb-2">
               Fexie/AskAboutMe
