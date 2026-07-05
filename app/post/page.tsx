@@ -6,7 +6,7 @@ import ViewUserInput from "../components/ViewInputChat";
 import ViewUserChat, { Message } from "./chat";
 
 const smoothEase = [0.22, 1, 0.36, 1] as const;
-const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:5000";
+const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 interface PostProps {
   username: string;
