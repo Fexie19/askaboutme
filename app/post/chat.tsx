@@ -30,11 +30,11 @@ const ViewUserChat = ({ UserName, messages }: ViewUserChatProps) => {
           {/* <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-5 text-3xl">
             🤖
           </div> */}
-          <h1 className="text-2xl font-semibold text-white mb-2">
-            Hi, {UserName}!
+          <h1 className="text-3xl font-semibold text-white mb-2">
+            Hi {UserName}!!
           </h1>
           <p className="text-white/40 text-sm max-w-xs">
-            Mau nanya apa nih soal aku? Tulis aja di bawah, aku siap jawab.
+            Mau nanya apa nih soal aku atau dafa? Tulis aja di bawah, aku siap jawab.
           </p>
         </motion.div>
       ) : (
@@ -59,7 +59,13 @@ const ViewUserChat = ({ UserName, messages }: ViewUserChatProps) => {
                 msg.role === "user" ? "justify-end" : "justify-start"
               }`}
             >
-              <div className="max-w-[75%] rounded-2xl border border-white/25 bg-black px-4 py-2.5 text-sm leading-relaxed text-white">
+              <div className={
+                `rounded-3xl px-4 py-3 text-sm leading-relaxed text-white ${
+                  msg.role === "user"
+                    ? "max-w-[75%] bg-white/10"
+                    : "w-full"
+                }`
+              }>
                 {msg.content}
               </div>
             </motion.div>

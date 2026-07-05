@@ -4,12 +4,15 @@ import { useRef } from "react";
 
 interface ViewInputChatProps {
   onSend?: (message: string) => void;
+  disabled?: boolean;
 }
 
-const ViewInputChat = ({ onSend }: ViewInputChatProps) => {
+const ViewInputChat = ({ onSend, disabled = false }: ViewInputChatProps) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const handleSend = () => {
+    if (disabled) return;
+
     const el = textareaRef.current;
     if (!el) return;
 
@@ -43,11 +46,13 @@ const ViewInputChat = ({ onSend }: ViewInputChatProps) => {
           onKeyDown={handleKeyDown}
           placeholder="Ask anything About Me..."
           rows={1}
-          className="flex-1 bg-transparent resize-none outline-none text-white placeholder-white/40 py-2 max-h-[200px] leading-relaxed"
+          disabled={disabled}
+          className="flex-1 bg-transparent resize-none outline-none text-white placeholder-white/40 py-2 max-h-[200px] leading-relaxed disabled:cursor-not-allowed disabled:opacity-50"
         />
         <button
           onClick={handleSend}
-          className="shrink-0 flex items-center justify-center w-9 h-9 rounded-full bg-white hover:bg-white/90 active:scale-95 transition-all"
+          disabled={disabled}
+          className="shrink-0 flex items-center justify-center w-9 h-9 rounded-full bg-white hover:bg-white/90 active:scale-95 transition-all disabled:cursor-not-allowed disabled:opacity-50"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

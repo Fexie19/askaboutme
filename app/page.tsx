@@ -20,7 +20,7 @@ function PostWrapper({ username }: { username: string }) {
       <Post username={username} />
     </div>
   );
-}
+};
 
 export default function Home() {
   const [username, setUsername] = useState('');
@@ -64,7 +64,7 @@ export default function Home() {
               <Image src="/fexie-icon.svg" width={52} height={52} alt="Fexie Icon" />
             </div>
             <span className="text-[11px] tracking-[0.25em] text-white/40 mb-2">
-              Fexie/AskAboutMe
+              FexieAI/AskAboutMe
             </span>
             <h2 className="text-2xl font-semibold text-white leading-snug">
               Panggilan kamu siapa?
