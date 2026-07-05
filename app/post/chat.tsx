@@ -33,10 +33,10 @@ const ViewUserChat = ({ UserName, messages }: ViewUserChatProps) => {
           <h1 className="text-3xl font-semibold text-white mb-2">
             Hi {UserName}!!
           </h1>
-          <p className="text-white/40 text-sm max-w-xs">
+          <p className="text-white/60 text-sm max-w-xs">
             Mau nanya apa nih soal aku atau dafa? Tulis aja di bawah, aku siap jawab.
           </p>
-          <p className="text-white/30 text-xs max-w-xs mt-4 absolute bottom-62">
+          <p className="text-white/40 text-xs max-w-xs mt-4 absolute bottom-62">
             Fexie AI merepresentasikan diriku. Invitation atau ajakan yang kalian berikan, akan diteruskan kepadaku.
           </p>
         </motion.div>
