@@ -1,19 +1,51 @@
+"use client";
+
+import { useState } from "react";
+import { motion } from "framer-motion";
 import ViewUserInput from "../components/ViewInputChat";
-import ViewUserChat from "./chat";
+import ViewUserChat, { Message } from "./chat";
+
+const smoothEase = [0.22, 1, 0.36, 1] as const;
 
 interface PostProps {
   username: string;
 }
 
 const Post = ({ username }: PostProps) => {
+  const [messages, setMessages] = useState<Message[]>([]);
+  const hasMessages = messages.length > 0;
+
+  const handleSend = (content: string) => {
+    const userMsg: Message = {
+      id: crypto.randomUUID(),
+      role: "user",
+      content,
+    };
+    setMessages((prev) => [...prev, userMsg]);
+    // TODO: panggil API buat balasan assistant
+  };
+
   return (
-    <div className="flex flex-col h-screen bg-black overflow-hidden">
-      <div className="flex-1 overflow-y-auto">
-        <ViewUserChat UserName={username} />
+    <div
+      className={`flex flex-col h-screen bg-black overflow-hidden ${
+        hasMessages ? "" : "items-center justify-center px-4"
+      }`}
+    >
+      <div
+        className={`w-full ${
+          hasMessages ? "flex-1 overflow-y-auto chat-scroll" : ""
+        }`}
+      >
+        <ViewUserChat UserName={username} messages={messages} />
       </div>
-      <div className="w-full border-t border-white/10">
-        <ViewUserInput />
-      </div>
+
+      <motion.div
+        layout
+        transition={{ duration: 0.5, ease: smoothEase }}
+        className={`w-full ${hasMessages ? "border-t border-white/10" : ""}`}
+      >
+        <ViewUserInput onSend={handleSend} />
+      </motion.div>
     </div>
   );
 };

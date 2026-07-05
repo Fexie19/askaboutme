@@ -43,25 +43,13 @@ export default function Home() {
   };
 
   if (!hasEntered) {
-    // urutan state: belum mounted -> mounted -> (submit) -> exiting
     const showCard = mounted && !isExiting;
 
     return (
       <div className="relative flex items-center justify-center min-h-screen bg-black overflow-hidden px-4">
-        {/* Ambient glow */}
-
-        {/* Dot grid texture halus */}
-        <div
-          className="pointer-events-none absolute inset-0 opacity-[0.04]"
-          style={{
-            backgroundImage: 'radial-gradient(rgba(255,255,255,0.8) 1px, transparent 1px)',
-            backgroundSize: '28px 28px',
-          }}
-        />
-
         <form
           onSubmit={handleSubmit}
-          className={`relative w-full max-w-sm rounded-3xl border border-white/10 bg-white/[0.03] backdrop-blur-xl p-8 shadow-[0_0_80px_-20px_rgba(255,255,255,0.15)] transition-all duration-[350ms] ease-out motion-reduce:transition-none ${
+          className={`relative w-full max-w-sm rounded-3xl border border-white/10 bg-black p-8 transition-all duration-[350ms] ease-out motion-reduce:transition-none ${
             showCard
               ? 'opacity-100 scale-100 translate-y-0 blur-0'
               : 'opacity-0 scale-95 translate-y-3 blur-sm'
@@ -85,7 +73,7 @@ export default function Home() {
 
           <div
             className={`mb-5 rounded-xl border bg-black transition-colors duration-200 ${
-              isFocused ? 'border-white/40' : 'border-white/10'
+              isFocused ? 'border-white/20' : 'border-white/10'
             }`}
           >
             <input

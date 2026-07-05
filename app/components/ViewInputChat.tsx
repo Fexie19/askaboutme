@@ -1,67 +1,72 @@
-'use client'
+"use client";
 
-import { useState } from 'react';
+import { useRef } from "react";
 
-const ViewUserInput = () => {
-  const [message, setMessage] = useState('');
+interface ViewInputChatProps {
+  onSend?: (message: string) => void;
+}
+
+const ViewInputChat = ({ onSend }: ViewInputChatProps) => {
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const handleSend = () => {
-    if (!message.trim()) return;
-    // Panggil fungsi submit/kirim kamu di sini, contoh:
-    // handleSubmit(message);
-    console.log("Pesan terkirim:", message);
-    setMessage('');
+    const el = textareaRef.current;
+    if (!el) return;
+
+    const trimmed = el.value.trim();
+    if (!trimmed) return;
+
+    onSend?.(trimmed);
+    el.value = "";
+    el.style.height = "auto";
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      handleSend();
+    }
+  };
+
+  const handleInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const el = e.target;
+    el.style.height = "auto";
+    el.style.height = `${Math.min(el.scrollHeight, 200)}px`;
   };
 
   return (
-    <div className="w-full max-w-2xl mx-auto px-4 py-4 overflow-hidden">
-      <div className="relative flex items-end gap-2 bg-white/[0.04] border border-white/10 rounded-2xl shadow-[0_0_40px_-15px_rgba(255,255,255,0.1)] p-2.5 focus-within:border-white/30 transition-colors duration-200">
+    <div className="w-full max-w-2xl mx-auto px-4 py-3">
+      <div className="flex items-end gap-2 bg-white/5 border border-white/10 rounded-2xl px-4 py-2 focus-within:border-white/20 transition-colors">
         <textarea
-          maxLength={90}
+          ref={textareaRef}
+          onChange={handleInput}
+          onKeyDown={handleKeyDown}
+          placeholder="Ask anything About Me..."
           rows={1}
-          placeholder="Ask anything about me"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter' && e.shiftKey) {
-              e.preventDefault();
-            } else if (e.key === 'Enter') {
-              e.preventDefault();
-              handleSend();
-            }
-          }}
-          className="w-full flex-1 max-h-32 p-1.5 pr-2 text-white placeholder-white/30 bg-transparent resize-none outline-none text-base"
+          className="flex-1 bg-transparent resize-none outline-none text-white placeholder-white/40 py-2 max-h-[200px] leading-relaxed"
         />
-
         <button
-          type="button"
           onClick={handleSend}
-          disabled={!message.trim()}
-          className="shrink-0 p-2 bg-white text-black rounded-xl hover:bg-white/90 active:scale-95 transition-all duration-150 disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center"
+          className="shrink-0 flex items-center justify-center w-9 h-9 rounded-full bg-white hover:bg-white/90 active:scale-95 transition-all"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            fill="none"
             viewBox="0 0 24 24"
-            strokeWidth="2.5"
-            stroke="currentColor"
-            className="w-5 h-5 rotate-45"
+            fill="none"
+            className="w-4 h-4 text-black"
           >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
+            <path
+              d="M12 19V5M12 5L5 12M12 5L19 12"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
           </svg>
         </button>
-      </div>
-
-      <div className="flex items-center justify-between mt-2 px-1">
-        <p className="text-xs text-white/30 tracking-wide">
-          Peringatan. AI dapat membuat kesalahan.
-        </p>
-        <p className="text-xs text-white/30 tabular-nums">
-          {message.length}/90
-        </p>
       </div>
     </div>
   );
 };
 
-export default ViewUserInput;
+export default ViewInputChat;
