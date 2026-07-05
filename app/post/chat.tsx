@@ -27,9 +27,9 @@ const ViewUserChat = ({ UserName, messages }: ViewUserChatProps) => {
           transition={{ duration: 0.25, ease: "easeInOut" }}
           className="flex flex-col items-center justify-center h-full text-center px-6"
         >
-          <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-5 text-3xl">
+          {/* <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-5 text-3xl">
             🤖
-          </div>
+          </div> */}
           <h1 className="text-2xl font-semibold text-white mb-2">
             Hi, {UserName}!
           </h1>
