@@ -31,7 +31,7 @@ const ViewUserChat = ({ UserName, messages }: ViewUserChatProps) => {
             🤖
           </div> */}
           <h1 className="text-3xl font-semibold text-white mb-2">
-            Hi {UserName}!!
+            Halo {UserName}!!
           </h1>
           <p className="text-white/60 text-sm max-w-xs">
             Mau nanya apa nih soal aku atau dafa? Tulis aja di bawah, aku siap jawab.
